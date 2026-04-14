@@ -163,7 +163,7 @@ current_time = datetime.now()
 print("当前时间",current_time.strftime("\n%Y-%m-%d %H:%M:%S"))
 print("1.确保安装了chrome")
 print("2.确保关闭网络代理使用")
-print("3.项目开源地址：https://github.com/akic404/BIPT_NEW_AUTO_LOGIN")
+print("3.项目开源地址：https://github.com/akic404/BIPT_NET_AUTO_LOGIN")
 # print("version212213")
 
 
