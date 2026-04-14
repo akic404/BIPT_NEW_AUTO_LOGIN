@@ -71,6 +71,7 @@ user, pwd = load_config()
 #包括程序前期配置，需要global的东西
 current_time = datetime.now()
 print(current_time.strftime("\n%Y-%m-%d %H:%M:%S"))
+# print("version212213")
 
 
 
@@ -120,6 +121,7 @@ def LoginDecide():#两种网络状态，不同登录策略
 
     while(1):
         tab.get('http://210.31.32.126/srun_portal_success?ac_id=2&theme=pro')
+        browser.wait(second = 1)
         #获取两个按钮元素状态，用于判断目前是登录了还是没登录
         out = tab.ele(locator = '#logout',timeout = float(5))
         login = tab.ele(locator = '#login-account',timeout = float(5))
@@ -131,7 +133,9 @@ def LoginDecide():#两种网络状态，不同登录策略
 
         else:#先注销再登录
             print('注销然后登录')
+            print('点击注销按钮')
             out.click(by_js = 1)
+            print('done')
             sure = tab.ele('@text()=确认')
             sure.click(by_js = 1)
 
@@ -141,10 +145,13 @@ def LoginDecide():#两种网络状态，不同登录策略
             LoginDef()
 
         #---------------------密码错误检测
-        error_tip = tab.ele(locator = 'E2901: (Third party 1){',timeout = float(2))
+        error_tip = tab.ele(locator = 'E2901: (Third party 1)',timeout = float(2))
         if error_tip:
-            print("账户密码错误")
-            exit_with_prompt("账户密码错误，请检查配置")
+            exit_with_prompt("疑似密码错误，请检查配置")
+        #---------------------学号错误检测
+        error_tip = tab.ele(locator = 'E2901: (Third party -200)',timeout = float(2))
+        if error_tip:
+            exit_with_prompt("疑似学号错误，请检查配置")
 
         #---------------------联网检测
         baidu = tab.get(url = 'https://www.baidu.com',timeout = float(5),interval = 0)
